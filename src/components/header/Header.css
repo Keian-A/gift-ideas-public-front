@@ -1,0 +1,8 @@
+.header {
+    display: flex;
+    align-items: center;
+}
+
+#title {
+    font-size: 30px;
+}
