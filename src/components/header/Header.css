@@ -6,3 +6,16 @@
 #title {
     font-size: 30px;
 }
+
+.website-title {
+    text-decoration: none;
+    font-size: 60px;
+    color: black;
+    transition: 0.5s;
+    font-weight: 600;
+}
+
+.website-title:hover {
+    font-size: 63px;
+    transition: 0.5s;
+}

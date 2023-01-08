@@ -5,7 +5,7 @@ function Header() {
     return (
         <div className="header">
             <div id="title">
-                <h2>Gift Ideas</h2>
+                <a className='website-title' href="/">Gift Ideas</a>
             </div>
             <Dropdown />
         </div>

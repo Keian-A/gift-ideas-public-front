@@ -9,6 +9,7 @@ function Signup() {
 
     const formSubmit = (e) => {
         e.preventDefault();
+        // Send req to backend here
         console.log(username, password, cPassword);
     }
 

@@ -1,6 +1,7 @@
 import Header from './components/header/Header.jsx';
 import Home from './components/home/Home.jsx';
 import Signup from './components/signup/Signup.jsx';
+import Login from './components/login/Login.jsx';
 import { Provider } from 'react-redux';
 import store from './store/index.js';
 import {
@@ -23,6 +24,10 @@ function App() {
           <Route
             path="/signup"
             element={<Signup />}
+          />
+          <Route
+            path="/log-in"
+            element={<Login />}
           />
         </Routes>
       </BrowserRouter>
