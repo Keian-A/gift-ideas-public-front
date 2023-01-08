@@ -1,4 +1,4 @@
-import Header from './components/header/Header.js';
+import Header from './components/header/Header.jsx';
 import Home from './components/home/Home.jsx';
 import Signup from './components/signup/Signup.jsx';
 import { Provider } from 'react-redux';

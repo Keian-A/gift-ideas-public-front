@@ -1,4 +1,4 @@
-import Dropdown from '../dropdown/Dropdown.js';
+import Dropdown from '../dropdown/Dropdown.jsx';
 import './Header.css';
 
 function Header() {
