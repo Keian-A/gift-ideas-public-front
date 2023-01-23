@@ -5,21 +5,48 @@ function Signup() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [cPassword, setCPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    // TODO: Defensive program input to validate number
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [birthday, setBirthday] = useState("");
     const [show, setShow] = useState(false);
 
     const formSubmit = (e) => {
         e.preventDefault();
         // Send req to backend here
-        console.log(username, password, cPassword);
+        console.log(username, password, cPassword, email, firstname, lastname, phoneNumber, birthday);
     }
 
     const handleChange = (e) => {
-        if (e.target.name === "username") {
-            setUsername(e.target.value);
-        } else if (e.target.name === "password") {
-            setPassword(e.target.value);
-        } else if (e.target.name === "confirm-password") {
-            setCPassword(e.target.value);
+        switch (e.target.name) {
+            case "username":
+                setUsername(e.target.value);
+                break;
+            case "password":
+                setPassword(e.target.value);
+                break;
+            case "confirm-password":
+                setCPassword(e.target.value);
+                break;
+            case "email":
+                setEmail(e.target.value);
+                break;
+            case "first-name":
+                setFirstname(e.target.value);
+                break;
+            case "last-name":
+                setLastname(e.target.value);
+                break;
+            case "phone-number":
+                setPhoneNumber(e.target.value);
+                break;
+            case "birthday":
+                setBirthday(e.target.value);
+                break;
+            default:
+                console.error("Input field expected error.");
         }
     }
 
@@ -31,16 +58,38 @@ function Signup() {
         <div className='signup'>
             <div id="signupForm">
                 <h2>Create an Account</h2>
+                <h6 className='smallInfo'>All fields with * are required</h6>
                 <form onSubmit={formSubmit}>
                     <div className='inputSection'>
-                        <input placeholder='Username' className='formInput' name="username" required onChange={handleChange}></input>
+                        <input placeholder='*Username' className='formInput' name="username" required onChange={handleChange}></input>
                     </div>
                     <div className='inputSection'>
-                        <input placeholder='Password' className='formInput' type={show ? "text" : "password"} name="password" required onChange={handleChange}></input>
+                        <input placeholder='*Password' className='formInput' type={show ? "text" : "password"} name="password" required onChange={handleChange}></input>
                     </div>
                     <div className='inputSection'>
-                        <input placeholder='Confirm Password' className='formInput' type={show ? "text" : "password"} name="confirm-password" required onChange={handleChange}></input>
+                        <input placeholder='*Confirm Password' className='formInput' type={show ? "text" : "password"} name="confirm-password" required onChange={handleChange}></input>
                         <button onClick={changePassShow}>Show Password</button>
+                    </div>
+                    <div className='inputSection'>
+                        <input placeholder='*Email' className='formInput' name="email" type="text" required onChange={handleChange}></input>
+                    </div>
+                    <div className='inputSection'>
+                        <input placeholder='*First Name' className='formInput' name="first-name" type="text" required onChange={handleChange}></input>
+                    </div>
+                    <div className='inputSection'>
+                        <input placeholder='*Last Name' className='formInput' name="last-name" type="text" required onChange={handleChange}></input>
+                    </div>
+                    <div className='label'>
+                        <label>Phone Number</label>
+                    </div>
+                    <div className='inputSection'>
+                        <input className='formInput' name="phone-number" type="number" onChange={handleChange}></input>
+                    </div>
+                    <div className='label'>
+                        <label>Birthday</label>
+                    </div>
+                    <div className='inputSection'>
+                        <input className='formInput' name="birthday" type="date" onChange={handleChange}></input>
                     </div>
                     <button type='submit'>Sign up!</button>
                 </form>

@@ -11,3 +11,11 @@
 .formInput {
     flex-grow: 2;
 }
+
+.label {
+    margin: 0 auto;
+}
+
+.smallInfo {
+    margin: 0;
+}
