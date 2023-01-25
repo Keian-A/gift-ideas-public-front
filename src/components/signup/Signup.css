@@ -19,3 +19,8 @@
 .smallInfo {
     margin: 0;
 }
+
+.passwordError {
+    margin: 0 auto;
+    color: red;
+}
