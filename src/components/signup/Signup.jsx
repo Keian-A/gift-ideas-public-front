@@ -31,6 +31,7 @@ function Signup() {
                     phoneNumber,
                     birthday
                 }
+                // TODO: Use this RESULT var to change redux state var to logged in
                 let result = await axios.post(`${SERVER}/newUser`, newUser);
                 console.log(result);
             } else {
@@ -95,7 +96,7 @@ function Signup() {
                     </div>
                     <div className='inputSection'>
                         <input placeholder='*Confirm Password' className='formInput' type={show ? "text" : "password"} name="confirm-password" required onChange={handleChange}></input>
-                        <button onSubmit="return false;" onClick={changePassShow}>Show Password</button>
+                        <button type='button' onClick={changePassShow}>Show Password</button>
                     </div>
                     <div className='inputSection'>
                         <input placeholder='*Email' className='formInput' name="email" type="text" required onChange={handleChange}></input>
@@ -120,8 +121,8 @@ function Signup() {
                     </div>
                     <button type='submit'>Sign up!</button>
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
 
