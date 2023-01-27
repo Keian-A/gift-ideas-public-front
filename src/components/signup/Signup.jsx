@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setLoggedIn } from '../../store/auth.js';
 import './Signup.css';
 
 const SERVER = process.env.REACT_APP_SERVER;
 
 function Signup() {
+
+    let dispatch = useDispatch();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [cPassword, setCPassword] = useState("");
@@ -16,6 +20,10 @@ function Signup() {
     const [birthday, setBirthday] = useState("");
     const [show, setShow] = useState(false);
     const [showError, setShowError] = useState(false);
+
+    const changeAuthState = () => {
+        dispatch(setLoggedIn());
+    }
 
     const formSubmit = async (e) => {
         e.preventDefault();
@@ -32,8 +40,14 @@ function Signup() {
                     birthday
                 }
                 // TODO: Use this RESULT var to change redux state var to logged in
-                let result = await axios.post(`${SERVER}/newUser`, newUser);
-                console.log(result);
+                let { data } = await axios.post(`${SERVER}/newUser`, newUser);
+                if (data) {
+                    // Success, need to redirect after changing state
+                    console.log(data);
+                    changeAuthState();
+                } else {
+                    console.log("failed")
+                }
             } else {
                 setShowError(true);
             }
