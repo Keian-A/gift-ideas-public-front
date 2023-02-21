@@ -1,15 +1,36 @@
 import { useState } from 'react';
 import './Login.css';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { changeLoggedState } from '../../store/auth.js';
+
+const SERVER = process.env.REACT_APP_SERVER;
 
 function Login() {
+    let dispatch = useDispatch();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [show, setShow] = useState(false);
+    const [passError, setPassError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
-    const handleSubmit = (e) => {
+    const changeAuthState = () => {
+        dispatch(changeLoggedState());
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Send req to backend here
-        console.log(username, password);
+        let loginCreds = {
+            username,
+            password
+        }
+        try {
+            await axios.post(`${SERVER}/login`, loginCreds);
+            changeAuthState();
+        } catch (e) {
+            setErrorMsg(e.message);
+            setPassError(true);
+        }
     }
 
     const handleChange = (e) => {
@@ -24,13 +45,16 @@ function Login() {
         <div className='login'>
             <div className='loginForm'>
                 <h2>Log in</h2>
+                {passError ? (
+                    <h6 className='red-text'>{errorMsg}</h6>
+                ) : null}
                 <form onSubmit={handleSubmit}>
                     <div className='inputSection'>
                         <input name="username" onChange={handleChange} className='formInput' placeholder='Username' />
                     </div>
                     <div className='inputSection'>
                         <input name="password" onChange={handleChange} className='formInput' placeholder='Password' type={show ? "text" : "password"} />
-                        <button onClick={() => setShow(!show)}>Show password</button>
+                        <button type='button' onClick={() => setShow(!show)}>Show password</button>
                     </div>
                     <button type='submit'>Log in</button>
                 </form>

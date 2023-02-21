@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setLoggedIn } from '../../store/auth.js';
+import { changeLoggedState } from '../../store/auth.js';
 import './Signup.css';
 
 const SERVER = process.env.REACT_APP_SERVER;
 
 function Signup() {
-
     let dispatch = useDispatch();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -22,12 +21,11 @@ function Signup() {
     const [showError, setShowError] = useState(false);
 
     const changeAuthState = () => {
-        dispatch(setLoggedIn());
+        dispatch(changeLoggedState());
     }
 
     const formSubmit = async (e) => {
         e.preventDefault();
-        // Send req to backend here
         try {
             if (password === cPassword) {
                 let newUser = {
@@ -39,7 +37,7 @@ function Signup() {
                     phoneNumber,
                     birthday
                 }
-                // TODO: Use this RESULT var to change redux state var to logged in
+                // TODO: Change redux state to add user data
                 let { data } = await axios.post(`${SERVER}/newUser`, newUser);
                 if (data) {
                     // Success, need to redirect after changing state

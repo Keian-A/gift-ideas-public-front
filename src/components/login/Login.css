@@ -7,3 +7,7 @@
 .inputSection {
     display: flex;
 }
+
+.red-text {
+    color: red;
+}

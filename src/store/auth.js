@@ -4,15 +4,12 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: false,
     reducers: {
-        setLoggedIn(state, action) {
-            state = true;
-        },
-        setLoggedOut(state, action) {
-            state = false;
+        changeLoggedState(state, action) {
+            state = !state;
         },
     }
 });
 
-export const { setLoggedIn, setLoggedOut } = authSlice.actions;
+export const { changeLoggedState } = authSlice.actions;
 
 export default authSlice;
