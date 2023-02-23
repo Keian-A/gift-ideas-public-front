@@ -44,7 +44,7 @@ function Signup() {
                     console.log(data);
                     changeAuthState();
                 } else {
-                    console.log("failed")
+                    console.log("failed");
                 }
             } else {
                 setShowError(true);
