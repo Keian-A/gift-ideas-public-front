@@ -37,7 +37,7 @@ function Signup() {
                     phoneNumber,
                     birthday
                 }
-                // TODO: Change redux state to add user data
+                // TODO: Change redux state to add user data.
                 let { data } = await axios.post(`${SERVER}/newUser`, newUser);
                 if (data) {
                     // Success, need to redirect after changing state
