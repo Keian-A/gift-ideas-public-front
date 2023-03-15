@@ -40,7 +40,7 @@ function Signup() {
                 // TODO: Change redux state to add user data.
                 let { data } = await axios.post(`${SERVER}/newUser`, newUser);
                 if (data) {
-                    // Success, need to redirect after changing state
+                    // Success, need to redirect after changing state.
                     console.log(data);
                     changeAuthState();
                 } else {
