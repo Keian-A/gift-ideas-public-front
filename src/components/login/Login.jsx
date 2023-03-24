@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Login.css';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { changeLoggedState } from '../../store/auth.js';
+import { loginSuccess } from '../../store/auth.js';
 
 const SERVER = process.env.REACT_APP_SERVER;
 
@@ -14,8 +14,9 @@ function Login() {
     const [passError, setPassError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
 
-    const changeAuthState = () => {
-        dispatch(changeLoggedState());
+    const changeAuthState = (userResponse) => {
+        // REVIEW REDUCER FUNCTION, THIS MIGHT NEED ARGUMENTS
+        dispatch(loginSuccess(userResponse));
     }
 
     const handleSubmit = async (e) => {
@@ -25,8 +26,9 @@ function Login() {
             password
         }
         try {
-            await axios.post(`${SERVER}/login`, loginCreds);
-            changeAuthState();
+            let { data } = await axios.post(`${SERVER}/login`, loginCreds);
+            console.log(data);
+            changeAuthState(data);
         } catch (e) {
             setErrorMsg(e.message);
             setPassError(true);

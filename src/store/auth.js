@@ -1,15 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const authSlice = createSlice({
-    name: 'auth',
-    initialState: false,
+// Initial state is an object here to track the user as well as logged in information. Makes user reducer reduntant. Will keep the user reducer for now for reference.
+const initialState = {
+    user: null,
+    isLoggedIn: false
+};
+
+const loginSlice = createSlice({
+    name: 'login',
+    initialState,
     reducers: {
-        changeLoggedState(state, action) {
-            state = !state;
+        loginSuccess: (state, action) => {
+            state.user = action.payload.user;
+            state.isLoggedIn = true;
         },
+        logoutSuccess: (state) => {
+            state.user = null;
+            state.isLoggedIn = false;
+        }
     }
 });
 
-export const { changeLoggedState } = authSlice.actions;
+export const { loginSuccess, logoutSuccess } = loginSlice.actions;
 
-export default authSlice;
+export default loginSlice.reducer;

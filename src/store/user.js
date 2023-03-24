@@ -1,21 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+// import { createSlice } from '@reduxjs/toolkit';
 
-// When initial login, current logged in user gets added here for later data manipulation
-const userSlice = createSlice({
-    name: 'user',
-    initialState: {},
-    reducers: {
-        add(state, action) {
-            console.log(action.payload);
-            // if (state[action.payload.name]) {
+// const initialState = {
+//     user: null
+// };
 
-            // } else {
-            //     state[action.payload.name] = 
-            // }
-        },
-    }
-});
+// const userSlice = createSlice({
+//     name: 'user',
+//     initialState,
+//     reducers: {
+//         setUser: (state, action) => {
+//             state.user = action.payload;
+//         },
+//         clearUser: (state) => {
+//             state.user = null;
+//         }
+//     }
+// });
 
-export const { add } = userSlice.actions;
+// export const { setUser, clearUser } = userSlice.actions;
 
-export default userSlice;
+// export default userSlice.reducer;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { changeLoggedState } from '../../store/auth.js';
+import { loginSuccess } from '../../store/auth.js';
 import './Signup.css';
 
 const SERVER = process.env.REACT_APP_SERVER;
@@ -21,7 +21,7 @@ function Signup() {
     const [showError, setShowError] = useState(false);
 
     const changeAuthState = () => {
-        dispatch(changeLoggedState());
+        dispatch(loginSuccess());
     }
 
     const formSubmit = async (e) => {
