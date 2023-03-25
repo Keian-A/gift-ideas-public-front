@@ -15,7 +15,6 @@ function Login() {
     const [errorMsg, setErrorMsg] = useState("");
 
     const changeAuthState = (userResponse) => {
-        // REVIEW REDUCER FUNCTION, THIS MIGHT NEED ARGUMENTS
         dispatch(loginSuccess(userResponse));
     }
 
@@ -27,8 +26,9 @@ function Login() {
         }
         try {
             let { data } = await axios.post(`${SERVER}/login`, loginCreds);
-            console.log(data);
-            changeAuthState(data);
+            if (data) {
+                changeAuthState(data);
+            }
         } catch (e) {
             setErrorMsg(e.message);
             setPassError(true);

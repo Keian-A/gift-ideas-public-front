@@ -2,6 +2,7 @@ import Header from './components/header/Header.jsx';
 import Home from './components/home/Home.jsx';
 import Signup from './components/signup/Signup.jsx';
 import Login from './components/login/Login.jsx';
+import LoginRedirect from './components/login-redirect/LoginRedirect.jsx';
 import { Provider } from 'react-redux';
 import store from './store/index.js';
 import {
@@ -28,6 +29,10 @@ function App() {
           <Route
             path="/log-in"
             element={<Login />}
+          />
+          <Route
+            path="/user-home"
+            element={<LoginRedirect />}
           />
         </Routes>
       </BrowserRouter>

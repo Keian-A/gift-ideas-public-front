@@ -20,8 +20,8 @@ function Signup() {
     const [show, setShow] = useState(false);
     const [showError, setShowError] = useState(false);
 
-    const changeAuthState = () => {
-        dispatch(loginSuccess());
+    const changeAuthState = (newUserObject) => {
+        dispatch(loginSuccess(newUserObject));
     }
 
     const formSubmit = async (e) => {
@@ -42,9 +42,9 @@ function Signup() {
                 if (data) {
                     // Success, need to redirect after changing state
                     console.log(data);
-                    changeAuthState();
+                    changeAuthState(data);
                 } else {
-                    console.log("failed");
+                    console.log("Failed to create new user.");
                 }
             } else {
                 setShowError(true);
