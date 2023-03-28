@@ -1,5 +1,4 @@
 import './DropdownMenu.css';
-// useSelector used for reading state, useDispatch used for using methods defined in reducers
 import { useSelector } from 'react-redux';
 
 function DropdownMenu() {
