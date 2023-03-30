@@ -5,15 +5,16 @@ function LoginRedirect() {
 
     let auth = useSelector(state => state.auth);
 
+    const redirectUser = () => {
+        window.location.replace = "/log-in"
+    }
+
     return (
         <div className='LoginRedirect'>
             {auth.isLoggedIn ? (
                 <div className='loggedInVerified'>
                 </div>
-            ) : (
-                // Figure this out
-                { window.location.replace = "/log-in" }
-            )}
+            ) : redirectUser()}
         </div>
     )
 }
