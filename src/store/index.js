@@ -12,7 +12,7 @@ const reducers = combineReducers({
     auth: authSlice,
 });
 
-// Store variable to be exported
+// Store variable to be exported.
 const store = configureStore({ reducer: reducers });
 
 export default store;
