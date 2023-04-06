@@ -6,7 +6,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 // import userSlice from './user.js';
 import authSlice from './auth.js';
 
-// Reducer function
+// Reducer function.
 const reducers = combineReducers({
     // user: userSlice,
     auth: authSlice,
