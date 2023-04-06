@@ -1,13 +1,15 @@
+import './Signup.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/auth.js';
-import './Signup.css';
+import { useNavigate } from 'react-router-dom';
 
 const SERVER = process.env.REACT_APP_SERVER;
 
 function Signup() {
     let dispatch = useDispatch();
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [cPassword, setCPassword] = useState("");
@@ -37,12 +39,10 @@ function Signup() {
                     phoneNumber,
                     birthday
                 }
-                // TODO: Change redux state to add user data.
                 let { data } = await axios.post(`${SERVER}/newUser`, newUser);
                 if (data) {
-                    // Success, need to redirect after changing state.
-                    console.log(data);
                     changeAuthState(data);
+                    navigate('/user-home');
                 } else {
                     console.log("Failed to create new user.");
                 }

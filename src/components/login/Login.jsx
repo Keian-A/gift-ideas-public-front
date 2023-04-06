@@ -3,11 +3,13 @@ import './Login.css';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/auth.js';
+import { useNavigate } from 'react-router-dom';
 
 const SERVER = process.env.REACT_APP_SERVER;
 
 function Login() {
     let dispatch = useDispatch();
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [show, setShow] = useState(false);
@@ -29,6 +31,7 @@ function Login() {
             if (data) {
                 changeAuthState(data);
             }
+            navigate('/user-home');
         } catch (e) {
             setErrorMsg(e.message);
             setPassError(true);
