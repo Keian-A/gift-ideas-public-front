@@ -16,7 +16,6 @@ function Signup() {
     const [email, setEmail] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
-    // TODO: Defensive program input to validate number.
     const [phoneNumber, setPhoneNumber] = useState("");
     const [birthday, setBirthday] = useState("");
     const [show, setShow] = useState(false);

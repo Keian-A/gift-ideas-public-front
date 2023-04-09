@@ -9,14 +9,15 @@ function LoginRedirect() {
 
     // If user isn't logged in, redirects to login page
     useEffect(() => {
+        console.log(auth)
         if (!auth.isLoggedIn) {
             navigate('/log-in');
         }
-    }, [auth, navigate])
+    }, [auth, navigate]);
 
     return (
         <div className='LoginRedirect'>
-
+            {/* <h3>Welcome back, {auth.user.username}</h3> */}
         </div>
     )
 }

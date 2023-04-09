@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// Initial state is an object here to track the user as well as logged in information. Makes user reducer reduntant. Will keep the user reducer for now for reference.
 const initialState = {
     user: null,
     isLoggedIn: false
