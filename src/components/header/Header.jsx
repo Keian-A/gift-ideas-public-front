@@ -1,12 +1,20 @@
 import Dropdown from '../dropdown/Dropdown.jsx';
 import './Header.css';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+
+    const navigate = useNavigate();
+
+    const headerNav = () => {
+        navigate('/');
+    }
+
     return (
         <div className="header">
-            <div id="title">
-                <a className='website-title' href="/">Gift Ideas</a>
-            </div>
+            <button className='headerBtn' onClick={headerNav}>
+                <h1>Gift Ideas</h1>
+            </button>
             <Dropdown />
         </div>
     );
