@@ -17,7 +17,7 @@ function LoginRedirect() {
     return (
         <div className='LoginRedirect'>
             {console.log(auth)}
-            {/* <h3>Welcome back, {auth.user.username}</h3> */}
+            <h3>Welcome back, {auth.user.username}</h3>
         </div>
     )
 }

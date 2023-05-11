@@ -7,6 +7,12 @@ function DropdownMenu() {
     let auth = useSelector(state => state.auth);
     const navigate = useNavigate();
 
+    const logOut = async () => {
+        // await dispatch(logoutSuccess());
+        // navigate('/');
+        window.location.reload(false);
+    }
+
     return (
         <div className='dropdownmenu'>
             {!auth.isLoggedIn ? (
@@ -18,10 +24,9 @@ function DropdownMenu() {
             ) : (
                 // Renders if user IS logged in
                 <div className='linkcontainer'>
-
+                    <button className='link' onClick={() => logOut()}>Log out</button>
                 </div>
-            )
-            }
+            )}
         </div >
     );
 }

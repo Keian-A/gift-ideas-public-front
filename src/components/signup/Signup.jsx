@@ -21,8 +21,8 @@ function Signup() {
     const [show, setShow] = useState(false);
     const [showError, setShowError] = useState(false);
 
-    const changeAuthState = (newUserObject) => {
-        dispatch(loginSuccess(newUserObject));
+    const changeAuthState = async (userResponse) => {
+        await dispatch(loginSuccess(userResponse));
     }
 
     const formSubmit = async (e) => {

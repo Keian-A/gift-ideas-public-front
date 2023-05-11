@@ -30,7 +30,6 @@ function Login() {
             let { data } = await axios.post(`${SERVER}/login`, loginCreds);
             if (data) {
                 changeAuthState(data);
-                console.log(data);
                 navigate('/user-home');
             }
         } catch (e) {
