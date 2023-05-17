@@ -7,7 +7,7 @@ function LoginRedirect() {
     let auth = useSelector(state => state.auth);
     const navigate = useNavigate();
 
-    // If user isn't logged in, redirects to login page
+    // If user isn't logged in, redirects to login page.
     useEffect(() => {
         if (!auth.isLoggedIn) {
             navigate('/log-in');
