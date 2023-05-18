@@ -1,0 +1,15 @@
+.giftGroups {
+    display: flex;
+}
+
+.col1 {
+    margin-right: 50px;
+}
+
+.groupsList {
+    list-style: none;
+}
+
+.groups-text {
+    font-weight: 400;
+}
