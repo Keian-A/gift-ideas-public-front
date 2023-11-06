@@ -2,11 +2,15 @@ import './LoginRedirect.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import SelectedGroup from '../selected-group/selected-group.jsx';
+
+const SERVER = process.env.REACT_APP_SERVER;
 
 function LoginRedirect() {
     let auth = useSelector(state => state.auth);
-    const [groupID, setGroupID] = useState("");
+    const [groupID, setGroupID] = useState('');
+    const [groupData, setGroupData] = useState('');
     const navigate = useNavigate();
 
     // If user isn't logged in, redirects to login page
@@ -17,6 +21,8 @@ function LoginRedirect() {
     }, [auth, navigate]);
 
     const changeSelectedGroup = (e) => {
+        let { data } = axios.get(`${SERVER}/ROUTE-NAME`);
+        setGroupData(data);
         setGroupID(e.target.id);
     }
 
@@ -33,7 +39,7 @@ function LoginRedirect() {
                     </ul>
                 </div>
                 <div className='col2'>
-                    <SelectedGroup groupID={groupID} />
+                    <SelectedGroup groupID={groupID} groupData={groupData} />
                 </div>
             </div>
         </div>
