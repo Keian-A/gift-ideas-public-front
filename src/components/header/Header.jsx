@@ -1,4 +1,4 @@
-import Dropdown from '../dropdown/Dropdown.jsx';
+import TemporaryDrawer from '../TemporaryDrawer/TemporaryDrawer.jsx';
 import './Header.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ function Header() {
             <button className='headerBtn' onClick={headerNav}>
                 <h1>Gift Ideas</h1>
             </button>
-            <Dropdown />
+            <TemporaryDrawer />
         </div>
     );
 }
