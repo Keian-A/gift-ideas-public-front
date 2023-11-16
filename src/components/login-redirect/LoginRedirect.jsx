@@ -29,6 +29,10 @@ function LoginRedirect() {
         setGroupID(e.target.id);
     }
 
+    const handleGroupTextChange = (e) => {
+        setNewGroupName(e.target.value);
+    }
+
     // TODO: Finish method to send group to backend to create group, ensure admin of group is set
     const createGroup = async () => {
         let tempGroupName = newGroupName.trim();
@@ -52,8 +56,9 @@ function LoginRedirect() {
                         {createGroupButton ? (
                             <div>
                                 <form onSubmit={createGroup}>
-                                    <TextField id="standard-basic" label="Group Name" variant="standard" />
+                                    <TextField onChange={() => handleGroupTextChange()} id="standard-basic" label="Group Name" variant="standard" />
                                 </form>
+                                <Button variant='outlined' type='submit'>Create</Button>
                                 <Button variant='outlined' onClick={() => setCreateGroupButton(!createGroupButton)}>Cancel</Button>
                             </div>
                         ) : (

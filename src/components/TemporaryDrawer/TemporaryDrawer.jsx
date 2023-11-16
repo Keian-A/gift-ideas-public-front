@@ -44,7 +44,7 @@ function TemporaryDrawer() {
                             ) : (
                                 <div>
                                     <Stack>
-                                        <Button onClick={() => navigate('/log-in')} variant='outlined'>Sign In</Button>
+                                        <Button onClick={() => navigate('/log-in')} variant='outlined'>Log In</Button>
                                         <Button onClick={() => navigate('/signup')} variant='outlined'>Sign Up</Button>
                                     </Stack>
                                 </div>
