@@ -36,14 +36,15 @@ function LoginRedirect() {
 
     // TODO: Finish method to send group to backend to create group, ensure admin of group is set
     const createGroup = async () => {
-        let tempGroupName = newGroupName.trim();
         let tempGroupData = {
-            groupName: newGroupName,
-            groupLeader: auth.user,
+            username: auth.user.username,
+            groupName: newGroupName.trim(),
+            groupLeader: auth.user.username,
         }
-        if (tempGroupName.length !== "") {
+        if (tempGroupData.groupName !== "") {
             try {
-                await axios.create(`${SERVER}/createGroup`, tempGroupData);
+                await axios.post(`${SERVER}/createGroup`, tempGroupData);
+                setCreateGroupButton(!createGroupButton)
             } catch (e) {
                 console.error(e.message);
             }
@@ -66,9 +67,9 @@ function LoginRedirect() {
                             <div>
                                 <form onSubmit={createGroup}>
                                     <TextField onChange={handleGroupTextChange} id="standard-basic" label="Group Name" variant="standard" />
+                                    <Button variant='outlined' type='submit'>Create</Button>
+                                    <Button variant='outlined' onClick={() => setCreateGroupButton(!createGroupButton)}>Cancel</Button>
                                 </form>
-                                <Button variant='outlined' type='submit'>Create</Button>
-                                <Button variant='outlined' onClick={() => setCreateGroupButton(!createGroupButton)}>Cancel</Button>
                             </div>
                         ) : (
                             <Button variant='outlined' onClick={() => setCreateGroupButton(!createGroupButton)}>Create Group</Button>
