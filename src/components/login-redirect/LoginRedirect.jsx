@@ -65,7 +65,7 @@ function LoginRedirect() {
                         {createGroupButton ? (
                             <div>
                                 <form onSubmit={createGroup}>
-                                    <TextField onChange={() => handleGroupTextChange()} id="standard-basic" label="Group Name" variant="standard" />
+                                    <TextField onChange={handleGroupTextChange} id="standard-basic" label="Group Name" variant="standard" />
                                 </form>
                                 <Button variant='outlined' type='submit'>Create</Button>
                                 <Button variant='outlined' onClick={() => setCreateGroupButton(!createGroupButton)}>Cancel</Button>
