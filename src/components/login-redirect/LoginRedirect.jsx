@@ -23,8 +23,9 @@ function LoginRedirect() {
         }
     }, [auth, navigate]);
 
-    const changeSelectedGroup = (e) => {
-        let { data } = axios.get(`${SERVER}/ROUTE-NAME`);
+    // TODO: Finish method to fetch selected group
+    const changeSelectedGroup = async (e) => {
+        let { data } = await axios.get(`${SERVER}/ROUTE-NAME`);
         setGroupData(data);
         setGroupID(e.target.id);
     }
@@ -36,8 +37,16 @@ function LoginRedirect() {
     // TODO: Finish method to send group to backend to create group, ensure admin of group is set
     const createGroup = async () => {
         let tempGroupName = newGroupName.trim();
+        let tempGroupData = {
+            groupName: newGroupName,
+            groupLeader: auth.user,
+        }
         if (tempGroupName.length !== "") {
-
+            try {
+                await axios.create(`${SERVER}/createGroup`, tempGroupData);
+            } catch (e) {
+                console.error(e.message);
+            }
         }
     }
 
