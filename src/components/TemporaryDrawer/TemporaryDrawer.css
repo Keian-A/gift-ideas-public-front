@@ -1,0 +1,8 @@
+#hamburger-icon {
+    max-width: 40px;
+    display: inline-block;
+}
+
+#hamburger-div {
+    display: flex;
+}
