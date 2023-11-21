@@ -16,10 +16,13 @@ const loginSlice = createSlice({
         logoutSuccess: (state) => {
             state.user = null;
             state.isLoggedIn = false;
+        },
+        groupAddSuccess: (state, action) => {
+            state.user = action.payload;
         }
     }
 });
 
-export const { loginSuccess, logoutSuccess } = loginSlice.actions;
+export const { loginSuccess, logoutSuccess, groupAddSuccess } = loginSlice.actions;
 
 export default loginSlice.reducer;

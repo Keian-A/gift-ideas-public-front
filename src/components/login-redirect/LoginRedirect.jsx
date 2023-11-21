@@ -5,11 +5,14 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, TextField } from '@mui/material';
 import SelectedGroup from '../selected-group/selected-group.jsx';
+import { useDispatch } from 'react-redux';
+import { groupAddSuccess } from '../../store/auth.js';
 
 const SERVER = process.env.REACT_APP_SERVER;
 
 function LoginRedirect() {
     let auth = useSelector(state => state.auth);
+    let dispatch = useDispatch();
     const [createGroupButton, setCreateGroupButton] = useState(false);
     const [groupID, setGroupID] = useState('');
     const [groupData, setGroupData] = useState('');
@@ -34,17 +37,23 @@ function LoginRedirect() {
         setNewGroupName(e.target.value);
     }
 
-    // TODO: Finish method to send group to backend to create group, ensure admin of group is set
+    const changeGroupState = (userResponse) => {
+        dispatch(groupAddSuccess(userResponse));
+    }
+
+    // TODO: Find out issue with logout on this function invocation.
     const createGroup = async () => {
         let tempGroupData = {
             username: auth.user.username,
-            groupName: newGroupName.trim(),
-            groupLeader: auth.user.username,
+            groupName: newGroupName.trim()
         }
         if (tempGroupData.groupName !== "") {
             try {
-                await axios.post(`${SERVER}/createGroup`, tempGroupData);
-                setCreateGroupButton(!createGroupButton)
+                let { data } = await axios.post(`${SERVER}/createGroup`, tempGroupData);
+                if (data) {
+                    changeGroupState(data);
+                }
+                setCreateGroupButton(!createGroupButton);
             } catch (e) {
                 console.error(e.message);
             }
@@ -53,7 +62,7 @@ function LoginRedirect() {
 
     return (
         <div id='LoginRedirect'>
-            <h3>Welcome back, {auth.user.username}</h3>
+            <h3>Welcome back, {auth.user ? auth.user.username : null}</h3>
             <div className='giftGroups'>
                 <div className='col1'>
                     <ul className='groupsList'>
@@ -65,7 +74,7 @@ function LoginRedirect() {
                     <div id="create-group-btn">
                         {createGroupButton ? (
                             <div>
-                                <form onSubmit={createGroup}>
+                                <form onSubmit={() => createGroup()}>
                                     <TextField onChange={handleGroupTextChange} id="standard-basic" label="Group Name" variant="standard" />
                                     <Button variant='outlined' type='submit'>Create</Button>
                                     <Button variant='outlined' onClick={() => setCreateGroupButton(!createGroupButton)}>Cancel</Button>
