@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/auth.js';
 import { useNavigate } from 'react-router-dom';
+import { loginUserSuccess } from '../../store/user.js';
 
 const SERVER = process.env.REACT_APP_SERVER;
 
@@ -21,8 +22,9 @@ function Signup() {
     const [show, setShow] = useState(false);
     const [showError, setShowError] = useState(false);
 
-    const changeAuthState = async (userResponse) => {
-        await dispatch(loginSuccess(userResponse));
+    const changeAuthState = (userResponse) => {
+        dispatch(loginSuccess());
+        dispatch(loginUserSuccess(userResponse));
     }
 
     const formSubmit = async (e) => {

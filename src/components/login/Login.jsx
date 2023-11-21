@@ -3,6 +3,7 @@ import './Login.css';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/auth.js';
+import { loginUserSuccess } from '../../store/user.js';
 import { useNavigate } from 'react-router-dom';
 
 const SERVER = process.env.REACT_APP_SERVER;
@@ -17,7 +18,8 @@ function Login() {
     const [errorMsg, setErrorMsg] = useState("");
 
     const changeAuthState = (userResponse) => {
-        dispatch(loginSuccess(userResponse));
+        dispatch(loginSuccess());
+        dispatch(loginUserSuccess(userResponse));
     }
 
     const handleSubmit = async (e) => {

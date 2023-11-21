@@ -5,13 +5,15 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, TextField } from '@mui/material';
 import SelectedGroup from '../selected-group/selected-group.jsx';
+import GroupList from '../group-list/groupList.jsx';
 import { useDispatch } from 'react-redux';
-import { groupAddSuccess } from '../../store/auth.js';
+import { groupAddSuccess } from '../../store/user.js';
 
 const SERVER = process.env.REACT_APP_SERVER;
 
 function LoginRedirect() {
-    let auth = useSelector(state => state.auth);
+    let user = useSelector(state => state.user.user);
+    let isAuthenticated = useSelector(state => state.auth.isLoggedIn);
     let dispatch = useDispatch();
     const [createGroupButton, setCreateGroupButton] = useState(false);
     const [groupID, setGroupID] = useState('');
@@ -21,10 +23,10 @@ function LoginRedirect() {
 
     // If user isn't logged in, redirects to login page
     useEffect(() => {
-        if (!auth.isLoggedIn) {
+        if (!isAuthenticated) {
             navigate('/log-in');
         }
-    }, [auth, navigate]);
+    }, [isAuthenticated, navigate]);
 
     // TODO: Finish method to fetch selected group
     const changeSelectedGroup = async (e) => {
@@ -42,9 +44,10 @@ function LoginRedirect() {
     }
 
     // TODO: Find out issue with logout on this function invocation.
-    const createGroup = async () => {
+    const createGroup = async (e) => {
+        e.preventDefault();
         let tempGroupData = {
-            username: auth.user.username,
+            username: user.username,
             groupName: newGroupName.trim()
         }
         if (tempGroupData.groupName !== "") {
@@ -62,19 +65,14 @@ function LoginRedirect() {
 
     return (
         <div id='LoginRedirect'>
-            <h3>Welcome back, {auth.user ? auth.user.username : null}</h3>
+            <h3>Welcome back, {user ? user.username : null}</h3>
             <div className='giftGroups'>
                 <div className='col1'>
-                    <ul className='groupsList'>
-                        <li id="groups-text">Groups:</li>
-                        <li id="001" onClick={changeSelectedGroup}>Group 1</li>
-                        <li id="002" onClick={changeSelectedGroup}>Group 2</li>
-                        <li id="003" onClick={changeSelectedGroup}>Group 3</li>
-                    </ul>
+                    <GroupList />
                     <div id="create-group-btn">
                         {createGroupButton ? (
                             <div>
-                                <form onSubmit={() => createGroup()}>
+                                <form onSubmit={createGroup}>
                                     <TextField onChange={handleGroupTextChange} id="standard-basic" label="Group Name" variant="standard" />
                                     <Button variant='outlined' type='submit'>Create</Button>
                                     <Button variant='outlined' onClick={() => setCreateGroupButton(!createGroupButton)}>Cancel</Button>
