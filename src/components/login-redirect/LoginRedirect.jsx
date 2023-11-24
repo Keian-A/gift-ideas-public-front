@@ -16,7 +16,7 @@ function LoginRedirect() {
     let isAuthenticated = useSelector(state => state.auth.isLoggedIn);
     let dispatch = useDispatch();
     const [createGroupButton, setCreateGroupButton] = useState(false);
-    const [groupID, setGroupID] = useState('');
+    // const [groupID, setGroupID] = useState('');
     const [groupData, setGroupData] = useState('');
     const [newGroupName, setNewGroupName] = useState('');
     const navigate = useNavigate();
@@ -30,9 +30,12 @@ function LoginRedirect() {
 
     // TODO: Finish method to fetch selected group
     const changeSelectedGroup = async (e) => {
-        let { data } = await axios.get(`${SERVER}/ROUTE-NAME`);
+        let tempGroupReq = {
+            username: user.username,
+            groupUUID: e.target.id
+        }
+        let { data } = await axios.post(`${SERVER}/fetchGroup`, tempGroupReq);
         setGroupData(data);
-        setGroupID(e.target.id);
     }
 
     const handleGroupTextChange = (e) => {
@@ -68,7 +71,7 @@ function LoginRedirect() {
             <h3>Welcome back, {user ? user.username : null}</h3>
             <div className='giftGroups'>
                 <div className='col1'>
-                    <GroupList />
+                    <GroupList changeSelectedGroup={changeSelectedGroup} />
                     <div id="create-group-btn">
                         {createGroupButton ? (
                             <div>
@@ -84,7 +87,7 @@ function LoginRedirect() {
                     </div>
                 </div>
                 <div className='col2'>
-                    <SelectedGroup groupID={groupID} groupData={groupData} />
+                    <SelectedGroup groupData={groupData} />
                 </div>
             </div>
         </div>
