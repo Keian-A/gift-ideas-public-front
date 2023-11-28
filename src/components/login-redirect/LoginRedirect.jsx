@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button, TextField } from '@mui/material';
+import { Button, Input, Stack, TextField } from '@mui/material';
 import SelectedGroup from '../selected-group/selected-group.jsx';
 import GroupList from '../group-list/groupList.jsx';
 import { useDispatch } from 'react-redux';
@@ -16,9 +16,10 @@ function LoginRedirect() {
     let isAuthenticated = useSelector(state => state.auth.isLoggedIn);
     let dispatch = useDispatch();
     const [createGroupButton, setCreateGroupButton] = useState(false);
-    // const [groupID, setGroupID] = useState('');
     const [groupData, setGroupData] = useState('');
     const [newGroupName, setNewGroupName] = useState('');
+    const [groupID, setGroupID] = useState('');
+    const [showJoinGroup, setShowJoinGroup] = useState(false);
     const navigate = useNavigate();
 
     // If user isn't logged in, redirects to login page
@@ -38,9 +39,24 @@ function LoginRedirect() {
         setGroupData(data);
     }
 
+    const handleGroupInputChange = (e) => {
+        setGroupID(e.target.value);
+    }
+
     const handleGroupTextChange = (e) => {
         setNewGroupName(e.target.value);
     }
+
+    const joinGroupByID = async () => {
+        try {
+            let tempID = { username: user.username, groupID: groupID };
+            let { data } = await axios.post(`${SERVER}/joinGroup`, tempID);
+            console.log(data);
+        } catch (e) {
+            console.error(e.message);
+        }
+    }
+
 
     const changeGroupState = (userResponse) => {
         dispatch(groupAddSuccess(userResponse));
@@ -82,7 +98,17 @@ function LoginRedirect() {
                                 </form>
                             </div>
                         ) : (
-                            <Button variant='outlined' onClick={() => setCreateGroupButton(!createGroupButton)}>Create Group</Button>
+                            <Stack>
+                                <Button variant='outlined' onClick={() => setCreateGroupButton(!createGroupButton)}>Create Group</Button>
+                                {showJoinGroup ? (
+                                    <div>
+                                        <Input onChange={handleGroupInputChange} placeholder='Put code here'></Input>
+                                        <Button variant='outlined' onClick={() => joinGroupByID()}>Join</Button>
+                                    </div>
+                                ) : (
+                                    <Button variant='outlined' onClick={() => setShowJoinGroup(!showJoinGroup)}>Join group by ID</Button>
+                                )}
+                            </Stack>
                         )}
                     </div>
                 </div>

@@ -26,9 +26,9 @@ const form_style = {
 
 // TODO: Make this Modal a form to add to list, and add route to backend for adding item to gift list for specified group
 function SelectedGroup({ groupData }) {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [open, setOpen] = useState("");
+    const handleClose = () => setOpen("");
+    const handleOpen = (str) => setOpen(str);
     let user = useSelector(state => state.user.user);
 
     const [giftName, setGiftName] = useState('');
@@ -85,10 +85,23 @@ function SelectedGroup({ groupData }) {
         <div className='selected-group'>
             {groupData ? (
                 <div>
-                    <h2>Selected Group: {groupData.groupName}</h2>
-                    <Button onClick={handleOpen}>Add to My List</Button>
+                    <h2>{groupData.groupName}'s Gifts!</h2>
+
+                    <Button onClick={() => handleOpen("group-invite")}>Invite to group</Button>
                     <Modal
-                        open={open}
+                        open={open === "group-invite"}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={box_style}>
+                            <h3 id="invite-code">{`Invite to group with this code: ${groupData.groupUUID}`}</h3>
+                        </Box>
+                    </Modal>
+
+                    <Button onClick={() => handleOpen("list")}>Add to My List</Button>
+                    <Modal
+                        open={open === "list"}
                         onClose={handleClose}
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"
@@ -125,7 +138,7 @@ function SelectedGroup({ groupData }) {
                 </div>
             ) : null
             }
-        </div >
+        </div>
     )
 }
 
