@@ -51,7 +51,8 @@ function LoginRedirect() {
         try {
             let tempID = { username: user.username, groupID: groupID };
             let { data } = await axios.post(`${SERVER}/joinGroup`, tempID);
-            console.log(data);
+            setGroupData(data);
+            setShowJoinGroup(false);
         } catch (e) {
             console.error(e.message);
         }
