@@ -29,7 +29,6 @@ function LoginRedirect() {
         }
     }, [isAuthenticated, navigate]);
 
-    // TODO: Finish method to fetch selected group
     const changeSelectedGroup = async (e) => {
         let tempGroupReq = {
             username: user.username,
@@ -63,7 +62,6 @@ function LoginRedirect() {
         dispatch(groupAddSuccess(userResponse));
     }
 
-    // TODO: Find out issue with logout on this function invocation.
     const createGroup = async (e) => {
         e.preventDefault();
         let tempGroupData = {
@@ -114,7 +112,7 @@ function LoginRedirect() {
                     </div>
                 </div>
                 <div className='col2'>
-                    <SelectedGroup groupData={groupData} />
+                    <SelectedGroup setGroupData={setGroupData} groupData={groupData} />
                 </div>
             </div>
         </div>

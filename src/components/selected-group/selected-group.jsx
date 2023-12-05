@@ -25,7 +25,7 @@ const form_style = {
 }
 
 // TODO: Make this Modal a form to add to list, and add route to backend for adding item to gift list for specified group
-function SelectedGroup({ groupData }) {
+function SelectedGroup({ setGroupData, groupData }) {
     const [open, setOpen] = useState("");
     const handleClose = () => setOpen("");
     const handleOpen = (str) => setOpen(str);
@@ -74,7 +74,8 @@ function SelectedGroup({ groupData }) {
                     group: groupData.groupUUID
                 }
                 let { data } = await axios.post(`${SERVER}/createGift`, tempGroupObj);
-                console.log(data);
+                setGroupData(data);
+                handleClose();
             }
         } catch (e) {
             console.error(e.message);

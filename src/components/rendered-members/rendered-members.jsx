@@ -33,13 +33,25 @@ function RenderedMembers({ memberList, giftList }) {
     const [open, setOpen] = useState("");
     const handleClose = () => setOpen("");
     const handleOpen = (username) => setOpen(username);
+    const [renderedGiftList, setRenderedGiftList] = useState([]);
+
+    // Makes gifts open in modal only the gifts from the person who's modal was clicked.
+    const handleClickedOpen = (username) => {
+        handleOpen(username);
+        let tempGiftList = [];
+        giftList.forEach((gift) => {
+            if (gift.giftAsker === username) {
+                tempGiftList.push(gift);
+            }
+        })
+        setRenderedGiftList(tempGiftList);
+    }
 
     return (
         <div>
             {memberList.map((member, idx) => (
                 <div className="family-member-modal" key={idx}>
-                    {console.log(member)}
-                    <Button onClick={() => handleOpen(member)}>{member}</Button>
+                    <Button onClick={() => handleClickedOpen(member)}>{member}</Button>
                     <Modal
                         // May need to open by member ID later if group has identically named members
                         open={open === member}
@@ -48,7 +60,7 @@ function RenderedMembers({ memberList, giftList }) {
                         aria-describedby="modal-modal-description"
                     >
                         <Box sx={style}>
-                            <MyPagination handlePurchase={handlePurchase} open={open} currentMember={user.username} handleDelete={handleDelete} gifts={giftList} />
+                            <MyPagination handlePurchase={handlePurchase} open={open} currentMember={user.username} handleDelete={handleDelete} gifts={renderedGiftList} />
                         </Box>
                     </Modal>
                 </div>

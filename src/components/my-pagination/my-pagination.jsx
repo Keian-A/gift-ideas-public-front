@@ -54,7 +54,7 @@ function MyPagination({ handlePurchase, handleDelete, gifts, currentMember, open
             <ul className='item-list'>
                 {tempGifts.map((gift, idx) => (
                     <li key={idx}>
-                        {gift.link ? (
+                        {gift.giftLink ? (
                             <a target="_blank" rel="noreferrer" href={gift.link}>{gift.giftName}</a>
                         ) : gift.giftName}
                         {/* Renders delete button only for yourself */}
