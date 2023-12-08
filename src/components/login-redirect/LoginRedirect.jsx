@@ -48,15 +48,16 @@ function LoginRedirect() {
 
     const joinGroupByID = async () => {
         try {
-            let tempID = { username: user.username, groupID: groupID };
-            let { data } = await axios.post(`${SERVER}/joinGroup`, tempID);
-            setGroupData(data);
+            if (groupID) {
+                let tempID = { username: user.username, groupID: groupID };
+                let { data } = await axios.post(`${SERVER}/joinGroup`, tempID);
+                setGroupData(data);
+            }
             setShowJoinGroup(false);
         } catch (e) {
             console.error(e.message);
         }
     }
-
 
     const changeGroupState = (userResponse) => {
         dispatch(groupAddSuccess(userResponse));
@@ -84,7 +85,7 @@ function LoginRedirect() {
     return (
         <div id='LoginRedirect'>
             <h3>Welcome back, {user ? user.username : null}</h3>
-            <div className='giftGroups'>
+            <div className='gift-groups'>
                 <div className='col1'>
                     <GroupList changeSelectedGroup={changeSelectedGroup} />
                     <div id="create-group-btn">

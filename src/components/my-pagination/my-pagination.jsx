@@ -29,7 +29,7 @@ function MyPagination({ handlePurchase, handleDelete, gifts, currentMember, open
         let tempIdx = 0;
         for (let ii = 0; ii < gifts.length; ii++) {
             if (gifts[ii]._id === id) {
-                handlePurchase(tempIdx, currentMember);
+                handlePurchase(tempIdx, currentMember, open);
             } else {
                 tempIdx++;
             }

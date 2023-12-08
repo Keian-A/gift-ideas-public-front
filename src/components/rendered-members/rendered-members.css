@@ -1,0 +1,13 @@
+#member-button {
+    margin-top: 30px;
+    min-width: 200px;
+}
+
+.family-member-modal {
+    width: 50%;
+    flex-wrap: wrap;
+}
+
+#mem-button-parent {
+    display: flex;
+}

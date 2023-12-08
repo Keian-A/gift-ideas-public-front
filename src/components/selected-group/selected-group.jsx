@@ -24,7 +24,6 @@ const form_style = {
     justifyContent: 'center',
 }
 
-// TODO: Make this Modal a form to add to list, and add route to backend for adding item to gift list for specified group
 function SelectedGroup({ setGroupData, groupData }) {
     const [open, setOpen] = useState("");
     const handleClose = () => setOpen("");
@@ -85,7 +84,7 @@ function SelectedGroup({ setGroupData, groupData }) {
     return (
         <div className='selected-group'>
             {groupData ? (
-                <div>
+                <div className='sec-but-members'>
                     <h2>{groupData.groupName}'s Gifts!</h2>
 
                     <Button onClick={() => handleOpen("group-invite")}>Invite to group</Button>

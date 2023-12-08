@@ -1,7 +1,11 @@
+import "./rendered-members.css";
 import { Box, Button, Modal } from '@mui/material';
 import { useState } from 'react';
 import MyPagination from '../my-pagination/my-pagination.jsx';
 import { useSelector } from 'react-redux';
+import axios from "axios";
+
+const SERVER = process.env.REACT_APP_SERVER;
 
 const style = {
     position: 'absolute',
@@ -15,17 +19,6 @@ const style = {
     p: 4,
 };
 
-const handlePurchase = async (giftID, currentMember) => {
-    let tempGiftObj = {
-        giftID: giftID,
-        username: currentMember
-    }
-    console.log(tempGiftObj);
-}
-
-const handleDelete = async () => {
-
-}
 
 function RenderedMembers({ memberList, giftList }) {
 
@@ -34,6 +27,24 @@ function RenderedMembers({ memberList, giftList }) {
     const handleClose = () => setOpen("");
     const handleOpen = (username) => setOpen(username);
     const [renderedGiftList, setRenderedGiftList] = useState([]);
+
+    const handlePurchase = async (giftID, currentMember, giftAsker) => {
+        let tempGiftObj = {
+            giftID: giftID,
+            username: currentMember,
+            giftAsker: giftAsker
+        }
+        try {
+            let { data } = await axios.post(`${SERVER}/handlePurchase`, tempGiftObj);
+
+        } catch (e) {
+            console.error(e.message);
+        }
+    }
+
+    const handleDelete = async (id) => {
+        console.log(id);
+    }
 
     // Makes gifts open in modal only the gifts from the person who's modal was clicked.
     const handleClickedOpen = (username) => {
@@ -48,10 +59,10 @@ function RenderedMembers({ memberList, giftList }) {
     }
 
     return (
-        <div>
+        <div id="mem-button-parent">
             {memberList.map((member, idx) => (
                 <div className="family-member-modal" key={idx}>
-                    <Button onClick={() => handleClickedOpen(member)}>{member}</Button>
+                    <Button id="member-button" variant='contained' onClick={() => handleClickedOpen(member)}>{member}</Button>
                     <Modal
                         // May need to open by member ID later if group has identically named members
                         open={open === member}
