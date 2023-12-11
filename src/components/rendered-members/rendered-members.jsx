@@ -20,7 +20,7 @@ const style = {
 };
 
 
-function RenderedMembers({ memberList, giftList }) {
+function RenderedMembers({ memberList, giftList, groupData, setGroupData }) {
 
     let user = useSelector(state => state.user.user);
     const [open, setOpen] = useState("");
@@ -28,15 +28,14 @@ function RenderedMembers({ memberList, giftList }) {
     const handleOpen = (username) => setOpen(username);
     const [renderedGiftList, setRenderedGiftList] = useState([]);
 
-    const handlePurchase = async (giftID, currentMember, giftAsker) => {
+    const handlePurchase = async (giftID) => {
         let tempGiftObj = {
             giftID: giftID,
-            username: currentMember,
-            giftAsker: giftAsker
+            username: user.username
         }
         try {
-            let { data } = await axios.post(`${SERVER}/handlePurchase`, tempGiftObj);
-
+            let { data } = await axios.post(`${SERVER}/purchaseGift`, tempGiftObj);
+            console.log(data);
         } catch (e) {
             console.error(e.message);
         }
@@ -71,7 +70,7 @@ function RenderedMembers({ memberList, giftList }) {
                         aria-describedby="modal-modal-description"
                     >
                         <Box sx={style}>
-                            <MyPagination handlePurchase={handlePurchase} open={open} currentMember={user.username} handleDelete={handleDelete} gifts={renderedGiftList} />
+                            <MyPagination groupData={groupData} setGroupData={setGroupData} handlePurchase={handlePurchase} open={open} handleDelete={handleDelete} gifts={renderedGiftList} />
                         </Box>
                     </Modal>
                 </div>

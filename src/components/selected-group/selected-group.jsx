@@ -134,7 +134,7 @@ function SelectedGroup({ setGroupData, groupData }) {
                             </form>
                         </Box>
                     </Modal>
-                    <RenderedMembers memberList={groupData.memberList} giftList={groupData.giftList} />
+                    <RenderedMembers groupData={groupData} setGroupData={setGroupData} memberList={groupData.memberList} giftList={groupData.giftList} />
                 </div>
             ) : null
             }

@@ -1,8 +1,10 @@
 import { Pagination, Stack, Button } from '@mui/material';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-function MyPagination({ handlePurchase, handleDelete, gifts, currentMember, open }) {
+function MyPagination({ handlePurchase, handleDelete, gifts, open, groupData, setGroupData }) {
 
+    let user = useSelector(state => state.user.user);
     const [pageApi, setPageApi] = useState(1);
     const itemsPerPage = 5;
     let indexStart = (pageApi * itemsPerPage) - (itemsPerPage);
@@ -26,22 +28,15 @@ function MyPagination({ handlePurchase, handleDelete, gifts, currentMember, open
     }
 
     const handleClickedPurchase = (id) => {
-        let tempIdx = 0;
-        for (let ii = 0; ii < gifts.length; ii++) {
-            if (gifts[ii]._id === id) {
-                handlePurchase(tempIdx, currentMember, open);
-            } else {
-                tempIdx++;
-            }
-        }
+        handlePurchase(id);
     }
 
     const handleClickedUnpurchase = (id, buyer) => {
-        if (currentMember === buyer) {
+        if (user.username === buyer) {
             let tempIdx = 0;
             for (let ii = 0; ii < gifts.length; ii++) {
                 if (gifts[ii]._id === id) {
-                    handlePurchase(tempIdx, currentMember);
+                    handlePurchase(tempIdx, user.username);
                 } else {
                     tempIdx++;
                 }
@@ -58,7 +53,7 @@ function MyPagination({ handlePurchase, handleDelete, gifts, currentMember, open
                             <a target="_blank" rel="noreferrer" href={gift.link}>{gift.giftName}</a>
                         ) : gift.giftName}
                         {/* Renders delete button only for yourself */}
-                        {open === currentMember ? (
+                        {open === user.username ? (
                             <Button variant="outlined " id='delGift' onClick={() => removeItem(gift._id)}>Delete</Button>
                         ) : gift.bought ? (
                             // If not rendering delete, that means you are viewing someone else's list, in which case display purchase button as well as who is purchasing it.
