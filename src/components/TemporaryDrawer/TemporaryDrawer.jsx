@@ -2,11 +2,15 @@ import * as React from 'react';
 import { Stack, ListItemIcon, ListItemButton, ListItem, List, Button, Drawer, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logoutSuccess } from '../../store/auth.js';
+import { logoutUserSuccess } from '../../store/user';
 import HamburgerIcon from '../../images/Hamburger.png';
 import './TemporaryDrawer.css';
 
 function TemporaryDrawer() {
     const loggedInState = useSelector((state) => state.auth.isLoggedIn);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [state, setState] = React.useState({ right: false });
 
@@ -19,9 +23,9 @@ function TemporaryDrawer() {
     };
 
     const logOut = async () => {
-        // await dispatch(logoutSuccess());
-        // navigate('/');
-        window.location.reload(false);
+        dispatch(logoutSuccess());
+        dispatch(logoutUserSuccess());
+        navigate('/');
     }
 
     const list = (anchor) => (

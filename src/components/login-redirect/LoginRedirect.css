@@ -1,9 +1,13 @@
-.giftGroups {
+.gift-groups {
     display: flex;
 }
 
 .col1 {
     margin-right: 50px;
+}
+
+.col2 {
+    flex-grow: 2;
 }
 
 .groupsList {
