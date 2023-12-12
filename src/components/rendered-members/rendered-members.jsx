@@ -28,8 +28,9 @@ function RenderedMembers({ memberList, giftList, groupData, setGroupData }) {
     const handleOpen = (username) => setOpen(username);
     const [renderedGiftList, setRenderedGiftList] = useState([]);
 
-    const handlePurchase = async (giftID) => {
+    const handlePurchase = async (giftID, groupID) => {
         let tempGiftObj = {
+            groupID: groupID,
             giftID: giftID,
             username: user.username
         }

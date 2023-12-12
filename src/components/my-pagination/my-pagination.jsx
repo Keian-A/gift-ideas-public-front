@@ -28,7 +28,7 @@ function MyPagination({ handlePurchase, handleDelete, gifts, open, groupData, se
     }
 
     const handleClickedPurchase = (id) => {
-        handlePurchase(id);
+        handlePurchase(id, groupData.groupUUID);
     }
 
     const handleClickedUnpurchase = (id, buyer) => {
